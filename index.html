@@ -1,0 +1,1345 @@
+<html>
+<!-- =========================
+VK.PrimeVerse Starter Website
+Files later split into:
+index.html / style.css / script.js
+For now full single-file code
+========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VK.PrimeVerse</title> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+    #particles{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+overflow:hidden;
+}
+
+#particles span{
+position:absolute;
+display:block;
+width:8px;
+height:8px;
+border-radius:50%;
+background:rgba(0,245,255,.7);
+box-shadow:0 0 14px rgba(0,245,255,.8);
+animation:floatParticle linear infinite;
+}
+
+/* Different positions */
+#particles span:nth-child(1){left:8%; animation-duration:10s; animation-delay:0s;}
+#particles span:nth-child(2){left:24%; width:6px; height:6px; animation-duration:14s; animation-delay:2s;}
+#particles span:nth-child(3){left:42%; background:rgba(255,122,0,.7); box-shadow:0 0 14px rgba(255,122,0,.8); animation-duration:12s;}
+#particles span:nth-child(4){left:63%; width:10px; height:10px; animation-duration:16s;}
+#particles span:nth-child(5){left:79%; background:rgba(157,77,255,.7); box-shadow:0 0 14px rgba(157,77,255,.8); animation-duration:11s;}
+#particles span:nth-child(6){left:92%; width:7px; height:7px; animation-duration:15s;}
+
+@keyframes floatParticle{
+0%{
+transform:translateY(110vh) scale(.6);
+opacity:0;
+}
+10%{opacity:1;}
+100%{
+transform:translateY(-10vh) scale(1.4);
+opacity:0;
+}
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+font-family:'Inter', sans-serif;
+}
+
+body{
+background:#05070d;
+color:white;
+overflow-x:hidden;
+}
+
+#entry,
+#portal,
+#main,
+nav,
+section,
+footer{
+position:relative;
+z-index:2;
+}
+
+/* COLORS */
+:root{
+--cyan:#00f5ff;
+--orange:#ff7a00;
+--violet:#9d4dff;
+--glass:rgba(255,255,255,0.07);
+}
+
+/* ENTRY SCREEN */
+
+#entry{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:22px;
+background:
+radial-gradient(circle at top left, rgba(157,77,255,.18), transparent 28%),
+radial-gradient(circle at bottom right, rgba(255,122,0,.18), transparent 28%),
+linear-gradient(135deg,#05070d,#0c1020,#06080f);
+padding:20px;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+#entry img{
+width:160px;
+height:160px;
+object-fit:cover;
+border-radius:50%;
+padding:8px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 0 18px rgba(255,122,0,.35),
+0 0 38px rgba(0,245,255,.18);
+animation:floatLogo 3s ease-in-out infinite;
+margin-bottom:8px;
+}
+
+@keyframes floatLogo{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+}
+
+#entry h1{
+font-size:46px;
+color:var(--cyan);
+font-family:'Orbitron', sans-serif;
+text-shadow:
+0 0 14px var(--cyan),
+0 0 28px rgba(0,245,255,.45);
+letter-spacing:1px;
+}
+
+form{
+width:100%;
+max-width:430px;
+display:flex;
+flex-direction:column;
+gap:14px;
+padding:28px;
+border-radius:24px;
+background:rgba(255,255,255,.06);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.08);
+box-shadow:
+0 0 25px rgba(0,245,255,.10),
+0 0 50px rgba(157,77,255,.08);
+}
+
+input,select,button{
+padding:14px;
+border:none;
+outline:none;
+border-radius:10px;
+font-size:16px;
+}
+
+input,select{
+padding:15px;
+border:none;
+outline:none;
+border-radius:14px;
+font-size:16px;
+background:#101521;
+color:white;
+transition:.3s ease;
+border:1px solid transparent;
+}
+
+input:focus,
+select:focus{
+border-color:var(--cyan);
+box-shadow:0 0 12px rgba(0,245,255,.35);
+transform:scale(1.01);
+}
+
+button{
+padding:15px;
+border:none;
+outline:none;
+border-radius:14px;
+font-size:16px;
+font-weight:700;
+cursor:pointer;
+background:linear-gradient(90deg,var(--cyan),var(--orange));
+color:white;
+transition:.3s ease;
+box-shadow:0 0 18px rgba(0,245,255,.18);
+}
+button:hover{
+transform:translateY(-3px) scale(1.02);
+box-shadow:
+0 0 18px rgba(0,245,255,.35),
+0 0 30px rgba(255,122,0,.25);
+}
+
+/* PORTAL SCREEN */
+
+#portal{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(18px);
+text-align:center;
+padding:25px;
+cursor:pointer;
+animation:fadeIn .8s ease;
+}
+
+.portal-content{
+max-width:760px;
+padding:35px;
+border-radius:22px;
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 35px rgba(0,245,255,.18);
+}
+
+.portal-content h1{
+color:#00f5ff;
+margin-bottom:18px;
+text-shadow:0 0 15px #00f5ff;
+}
+
+.portal-content p{
+line-height:1.7;
+opacity:.92;
+margin-bottom:15px;
+}
+
+.portal-content small{
+color:#ddd;
+opacity:.8;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:scale(.95);}
+to{opacity:1; transform:scale(1);}
+}
+
+
+/* MAIN WEBSITE */
+#main{
+display:none;
+}
+
+/* NAVBAR */
+
+nav{
+position:sticky;
+top:0;
+z-index:1000;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 30px;
+background:rgba(5,7,13,.62);
+backdrop-filter:blur(14px);
+border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+
+nav h2{
+font-family:'Orbitron', sans-serif;
+font-size:24px;
+letter-spacing:1px;
+color:var(--cyan);
+text-shadow:
+0 0 10px var(--cyan),
+0 0 22px rgba(0,245,255,.35);
+}
+
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+position:relative;
+overflow:hidden;
+background:
+radial-gradient(circle at top right, rgba(157,77,255,.22), transparent 26%),
+radial-gradient(circle at bottom left, rgba(255,122,0,.18), transparent 26%),
+radial-gradient(circle at center, rgba(0,245,255,.08), transparent 30%),
+linear-gradient(135deg,#05070d,#0b1020,#06080f);
+}
+
+
+.hero h1{
+font-size:68px;
+margin-bottom:18px;
+font-family:'Orbitron', sans-serif;
+letter-spacing:2px;
+text-shadow:
+0 0 10px var(--cyan),
+0 0 28px var(--cyan),
+0 0 55px rgba(0,245,255,.35);
+animation:heroGlow 2.2s infinite alternate;
+}
+
+.hero span{
+color:var(--cyan);
+}
+
+.hero p{
+max-width:760px;
+line-height:1.8;
+opacity:.92;
+font-size:18px;
+margin-bottom:18px;
+animation:fadeRise 1.2s ease;
+}
+
+.hero button{
+margin-top:12px;
+width:230px;
+font-size:17px;
+padding:16px;
+}
+
+/* SECTION */
+section{
+padding:70px 20px;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+margin-bottom:40px;
+color:var(--cyan);
+font-family:'Orbitron', sans-serif;
+text-shadow:0 0 16px rgba(0,245,255,.75);
+letter-spacing:1px;
+}
+
+/* CARDS */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1200px;
+margin:auto;
+}
+
+.card{
+background:linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+border:1px solid rgba(255,255,255,.08);
+padding:28px;
+border-radius:22px;
+backdrop-filter:blur(10px);
+transition:.35s ease;
+box-shadow:0 0 0 rgba(0,0,0,0);
+opacity:0;
+transform:translateY(30px);
+animation:cardReveal .8s forwards;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+box-shadow:
+0 0 18px rgba(0,245,255,.35),
+0 0 45px rgba(157,77,255,.18);
+border-color:rgba(0,245,255,.35);
+}
+
+/* FOOTER */
+footer{
+padding:30px;
+text-align:center;
+opacity:.7;
+}
+
+/* MUSIC BTN */
+#musicBtn{
+position:fixed;
+bottom:20px;
+right:20px;
+z-index:999;
+border-radius:50%;
+width:55px;
+height:55px;
+font-size:22px;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+
+.hero h1{
+font-size:42px;
+line-height:1.2;
+}
+
+.hero p{
+font-size:16px;
+padding:0 8px;
+}
+
+nav{
+flex-direction:column;
+gap:14px;
+padding:16px;
+}
+
+nav ul{
+flex-wrap:wrap;
+justify-content:center;
+gap:12px;
+}
+
+#entry img{
+width:125px;
+height:125px;
+}
+
+#entry h1{
+font-size:34px;
+}
+
+form{
+padding:20px;
+}
+
+.title{
+font-size:30px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.hero button{
+width:100%;
+max-width:260px;
+}
+}
+
+button{
+box-shadow:0 0 18px rgba(0,245,255,.35);
+transition:.3s;
+}
+
+button:hover{
+transform:translateY(-3px) scale(1.03);
+box-shadow:0 0 28px rgba(0,245,255,.7);
+}
+
+.hero h1,
+.title,
+nav h2{
+text-shadow:0 0 14px rgba(0,245,255,.8);
+}
+
+.card:nth-child(1){animation-delay:.1s;}
+.card:nth-child(2){animation-delay:.2s;}
+.card:nth-child(3){animation-delay:.3s;}
+.card:nth-child(4){animation-delay:.4s;}
+
+@keyframes cardReveal{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes heroGlow{
+from{
+text-shadow:
+0 0 10px var(--cyan),
+0 0 20px var(--cyan);
+}
+to{
+text-shadow:
+0 0 18px var(--cyan),
+0 0 36px var(--cyan),
+0 0 60px rgba(0,245,255,.45);
+}
+}
+
+@keyframes fadeRise{
+from{
+opacity:0;
+transform:translateY(25px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+a, button, input, select{
+transition:.3s ease;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+#profilePreview{
+min-height:260px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+gap:14px;
+text-align:center;
+}
+
+#profilePreview h3{
+font-family:'Orbitron', sans-serif;
+color:var(--cyan);
+text-shadow:0 0 12px var(--cyan);
+}
+
+#profile-maker input,
+#profile-maker select{
+margin-bottom:12px;
+width:100%;
+}
+
+#welcomeBack{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+z-index:9999;
+background:
+linear-gradient(135deg,#05070d,#0c1020,#06080f);
+color:white;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+gap:16px;
+}
+
+#welcomeBack h1{
+font-size:52px;
+font-family:'Orbitron', sans-serif;
+color:var(--cyan);
+text-shadow:0 0 18px var(--cyan);
+}
+
+#welcomeBack p{
+font-size:22px;
+opacity:.9;
+}
+
+.overlayScreen{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:15px;
+z-index:2000;
+}
+
+.overlayScreen input,
+.overlayScreen textarea{
+width:300px;
+padding:12px;
+border-radius:10px;
+border:none;
+background:#111;
+color:white;
+}
+
+.themeGrid{
+display:grid;
+grid-template-columns:repeat(2,150px);
+gap:15px;
+}
+
+.themeGrid img{
+width:150px;
+height:200px;
+object-fit:cover;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
+}
+
+.themeGrid img:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px cyan;
+}
+
+/* PROFILE CREATOR UI */
+#profileCreator{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:rgba(0,0,0,0.9);
+backdrop-filter:blur(10px);
+
+display:none; /* 🔥 IMPORTANT */
+
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.formBox{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+display:flex;
+flex-direction:column;
+gap:15px;
+animation:fadeIn .4s ease;
+}
+
+.formBox h2{
+text-align:center;
+color:var(--cyan);
+}
+
+.formBox input,
+.formBox textarea{
+padding:12px;
+border-radius:10px;
+border:none;
+background:#101521;
+color:white;
+}
+
+.formBox textarea{
+min-height:100px;
+resize:none;
+}
+
+.formBox button{
+background:linear-gradient(90deg,var(--cyan),var(--orange));
+padding:12px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:scale(.8);}
+to{opacity:1; transform:scale(1);}
+}
+
+#profileCreator{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:rgba(0,0,0,0.9);
+
+display:none; /* 🔥 THIS PREVENTS ALWAYS SHOWING */
+
+justify-content:center;
+align-items:center;
+
+z-index:2000;
+}
+
+.formBox{
+background:#111;
+padding:25px;
+border-radius:15px;
+display:flex;
+flex-direction:column;
+gap:12px;
+width:300px;
+}
+
+.formBox input,
+.formBox textarea{
+padding:10px;
+border:none;
+border-radius:8px;
+background:#222;
+color:white;
+}
+
+#themeSelector{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+background:black;
+
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:20px;
+
+z-index:2000;
+}
+
+.profile-card{
+position: relative;
+z-index: 2;
+}
+
+.profile-bg-overlay{
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0,0,0,0.55); /* DARK MAGIC */
+z-index: 1;
+pointer-events: none;
+}
+
+.profile-card,
+.profile-card input,
+.profile-card textarea,
+.profile-card button{
+color: white;
+}
+
+.profile-card{
+background: rgba(0,0,0,0.4);
+backdrop-filter: blur(10px);
+border-radius: 15px;
+padding: 20px;
+}
+
+
+</style>
+</head>
+
+<body>
+
+<div id="welcomeBack">
+  <h1>⚡ Welcome Back</h1>
+  <p id="welcomeName">Loading...</p>
+</div>
+
+    <div id="particles">
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+<span></span>
+</div>
+
+<!-- ENTRY -->
+<div id="entry">
+<img src="client.vk-logo.png" alt="vk-logo">
+<h1>VK.PrimeVerse</h1>
+
+<form id="verifyForm">
+<input type="text" placeholder="Your Name" required>
+<input type="number" placeholder="Age" required>
+<input type="text" placeholder="Country" required>
+
+<select required>
+<option value="">Found us from?</option>
+<option>Instagram</option>
+<option>Discord</option>
+<option>YouTube</option>
+<option>Friend</option>
+<option>Other</option>
+</select>
+
+<button type="submit">Enter PrimeVerse</button>
+</form>
+</div>
+
+<!-- PORTAL -->
+<div id="portal">
+<div class="portal-content">
+<h1>⚡ Welcome To VK.PrimeVerse ⚡</h1>
+
+<p>
+Hello there, it's VK — welcome to our digital universe.
+VK.PrimeVerse is a safe and creative platform built for self-expression,
+custom profiles, community connections, templates, identity vibes,
+and next-level online presence.
+</p>
+
+<p>
+Discover spaces, customize your style, connect with communities,
+and explore features designed to level up your online identity.
+</p>
+
+<small>
+100% safe to visit and explore.<br>
+Click anywhere to enter the main website. Thank you.
+</small>
+</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+<!-- PROFILE BUILDER -->
+<div id="profileBuilder" class="overlayScreen">
+  <h2>👤 Create Your Profile</h2>
+
+  <input id="username" placeholder="Username">
+  <input id="name" placeholder="Your Name">
+  <textarea id="bio" placeholder="Write your bio..."></textarea>
+
+  <button onclick="saveProfile()">Save Profile</button>
+  <button onclick="closeOverlay()">Back</button>
+</div>
+
+<!-- THEME SELECTOR -->
+<div id="themeSelector" class="overlayScreen">
+  <h2>🎨 Choose Your Theme</h2>
+
+  <div class="themeGrid">
+    <img src="theme1.jpeg" onclick="setTheme(this.src)">
+    <img src="theme2.jpeg" onclick="setTheme(this.src)">
+    <img src="theme3.jpg" onclick="setTheme(this.src)">
+    <img src="theme4.jpg" onclick="setTheme(this.src)">
+    <img src="theme5.jpg" onclick="setTheme(this.src)">
+  </div>
+
+  <button onclick="closeOverlay()">Back</button>
+</div>
+
+<nav>
+<h2>VK.PrimeVerse</h2>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#explore">Explore</a></li>
+<li><a href="#profiles">Profiles</a></li>
+<li><a href="#connect">Connect</a></li>
+<li><a href="#profile-maker">Profile</a></li>
+<li><a href="#templates">Templates</a></li>
+</ul>
+</nav>
+
+<section class="hero" id="home">
+<h1>Welcome To <span>PrimeVerse</span></h1>
+<p>
+A futuristic social universe with Gen-Z energy, profiles,
+community, templates and next-level vibes.
+</p>
+<button onclick="scrollToSection()">Explore Now</button>
+</section>
+
+<section id="explore">
+<h2 class="title">Trending Universe</h2>
+<div class="grid">
+<div class="card">🔥 Trending Templates</div>
+<div class="card">⚡ Popular Profiles</div>
+<div class="card">🦊 Cyber Fox Events</div>
+<div class="card">🌌 Community Updates</div>
+</div>
+</section>
+
+<section id="profiles">
+<h2 class="title">👤 Create Your Profile</h2>
+
+<div class="grid">
+<div class="card" onclick="openProfileCreator()">✨ Create Profile</div>
+<div class="card" onclick="openTheme()">🎨 Customize Theme</div>
+</div>
+
+<!-- PROFILE CREATOR -->
+
+</section>
+
+<section id="connect">
+<h2 class="title">Connect Platforms</h2>
+<div class="grid">
+<div class="card">🎵 Spotify</div>
+<div class="card">▶ YouTube</div>
+<div class="card">💬 Discord</div>
+<div class="card">🌐 More Soon</div>
+</div>
+</section>
+
+<section id="profile-maker">
+<h2 class="title">🦊 Create Your Prime Profile</h2>
+
+<div class="grid">
+
+<div class="card">
+<input type="text" id="pName" placeholder="Enter Username">
+<input type="text" id="pBio" placeholder="Your Bio / Vibe">
+<select id="pTheme">
+<option value="">Choose Theme</option>
+<option value="cyan">Cyber Cyan</option>
+<option value="orange">Blaze Orange</option>
+<option value="violet">Galaxy Violet</option>
+<input type="file" id="pImage" accept="image/*">
+</select>
+
+<button onclick="generateProfile()">Create Profile</button>
+<button onclick="logoutUser()">Logout / Reset</button>
+</div>
+
+<div class="card" id="profilePreview">
+<h3>⚡ Your Prime Identity</h3>
+<p>Username appears here</p>
+<p>Bio appears here</p>
+<p>Theme appears here</p>
+</div>
+
+</div>
+</section>
+
+<section id="templates">
+<h2 class="title">🎨 Templates Gallery</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>⚡ Cyber Neon</h3>
+<p>Bright futuristic cyan energy.</p>
+<button onclick="applyTemplate('cyan')">Use Template</button>
+</div>
+
+<div class="card">
+<h3>🔥 Blaze Mode</h3>
+<p>Strong orange creator aura.</p>
+<button onclick="applyTemplate('orange')">Use Template</button>
+</div>
+
+<div class="card">
+<h3>🌌 Galaxy Drift</h3>
+<p>Purple cosmic premium vibe.</p>
+<button onclick="applyTemplate('violet')">Use Template</button>
+</div>
+
+<div class="card">
+<h3>🖤 Shadow Elite</h3>
+<p>Dark luxury stealth mode.</p>
+<button onclick="applyTemplate('shadow')">Use Template</button>
+</div>
+
+</div>
+</section>
+
+
+</div>
+
+
+<audio id="bgMusic">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8d6d7e0d7.mp3?filename=future-ambient-112997.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const form = document.getElementById("verifyForm");
+const entry = document.getElementById("entry");
+const portal = document.getElementById("portal");
+const main = document.getElementById("main");
+const music = document.getElementById("bgMusic");
+
+const savedUser = localStorage.getItem("vk_username");
+
+if(savedUser){
+
+entry.style.display = "none";
+
+const wb = document.getElementById("welcomeBack");
+const wn = document.getElementById("welcomeName");
+
+wb.style.display = "flex";
+wn.innerText = savedUser + " ⚡ Loading Your PrimeVerse...";
+
+setTimeout(()=>{
+wb.style.display = "none";
+main.style.display = "block";
+},2200);
+
+}
+
+form.addEventListener("submit", function(e){
+e.preventDefault();
+const username = form.querySelector('input[type="text"]').value || "Legend";
+localStorage.setItem("vk_username", username);
+entry.style.display = "none";
+portal.style.display = "flex";
+
+/* auto music */
+music.play().catch(()=>{});
+
+/* stop after 15 sec */
+setTimeout(()=>{
+music.pause();
+music.currentTime = 0;
+},15000);
+});
+
+portal.addEventListener("click", function(){
+portal.style.transition = "1.2s ease";
+portal.style.transform = "scale(18) rotate(8deg)";
+portal.style.opacity = "0";
+
+setTimeout(()=>{
+portal.style.display = "none";
+main.style.display = "block";
+},1000);
+});
+
+function scrollToSection(){
+document.getElementById("explore").scrollIntoView({
+behavior:"smooth"
+});
+}
+function generateProfile(){
+
+const name = document.getElementById("pName").value || "Anonymous Legend";
+const bio = document.getElementById("pBio").value || "No bio added yet.";
+const theme = document.getElementById("pTheme").value || "Default";
+const file = document.getElementById("pImage").files[0];
+
+localStorage.setItem("vk_username", name);
+localStorage.setItem("vk_bio", bio);
+localStorage.setItem("vk_theme", theme);
+
+const box = document.getElementById("profilePreview");
+
+box.innerHTML = `
+<h3>⚡ ${name}</h3>
+<p>${bio}</p>
+<p>Theme: ${theme}</p>
+`;
+if(file){
+const reader = new FileReader();
+
+reader.onload = function(e){
+
+localStorage.setItem("vk_avatar", e.target.result);
+
+box.innerHTML = `
+<img src="${e.target.result}" style="width:95px;height:95px;border-radius:50%;object-fit:cover;margin:auto;display:block;">
+<h3>⚡ ${name}</h3>
+<p>${bio}</p>
+<p>Theme: ${theme}</p>
+`;
+
+function applyTheme(theme){
+
+const box = document.getElementById("profilePreview");
+const pub = document.getElementById("publicCard");
+
+const targets = [box, pub];
+
+targets.forEach(el=>{
+if(!el) return;
+
+el.style.boxShadow = "none";
+el.style.background = "rgba(255,255,255,.05)";
+});
+
+if(theme==="cyan"){
+targets.forEach(el=>{
+if(el) el.style.boxShadow="0 0 25px rgba(0,245,255,.35)";
+});
+}
+
+else if(theme==="orange"){
+targets.forEach(el=>{
+if(el) el.style.boxShadow="0 0 25px rgba(255,122,0,.35)";
+});
+}
+
+else if(theme==="violet"){
+targets.forEach(el=>{
+if(el) el.style.boxShadow="0 0 25px rgba(157,77,255,.35)";
+});
+}
+
+else if(theme==="shadow"){
+targets.forEach(el=>{
+if(el){
+el.style.background="rgba(0,0,0,.45)";
+el.style.boxShadow="0 0 25px rgba(255,255,255,.12)";
+}
+});
+}
+
+};
+
+};
+
+reader.readAsDataURL(file);
+
+}else{
+
+const oldAvatar = localStorage.getItem("vk_avatar");
+
+if(oldAvatar){
+box.innerHTML = `
+<img src="${oldAvatar}" style="width:95px;height:95px;border-radius:50%;object-fit:cover;margin:auto;display:block;">
+<h3>⚡ ${name}</h3>
+<p>${bio}</p>
+<p>Theme: ${theme}</p>
+`;
+}
+
+}
+
+applyTheme(theme);
+
+}
+
+window.addEventListener("load", function(){
+
+const savedName = localStorage.getItem("vk_username");
+const savedBio = localStorage.getItem("vk_bio");
+const savedTheme = localStorage.getItem("vk_theme");
+
+if(savedName){
+
+document.getElementById("pName").value = savedName || "";
+document.getElementById("pBio").value = savedBio || "";
+document.getElementById("pTheme").value = savedTheme || "";
+
+const box = document.getElementById("profilePreview");
+
+box.innerHTML = `
+<h3>⚡ ${savedName}</h3>
+<p>${savedBio || "No bio added yet."}</p>
+<p>Theme: ${savedTheme || "Default"}</p>
+`;
+
+applyTheme(savedTheme);
+}
+
+});
+function logoutUser(){
+
+localStorage.removeItem("vk_username");
+localStorage.removeItem("vk_bio");
+localStorage.removeItem("vk_theme");
+localStorage.removeItem("vk_avatar");
+location.reload();
+
+}
+
+function applyTemplate(type){
+
+localStorage.setItem("vk_theme", type);
+
+document.getElementById("pTheme").value = type;
+
+applyTheme(type);
+
+document.getElementById("saveMsg").innerText =
+"✅ Template Applied";
+
+setTimeout(()=>{
+document.getElementById("saveMsg").innerText = "";
+},2000);
+
+loadPublicProfile();
+
+}
+
+function openProfile(){
+document.getElementById("profileBuilder").style.display="flex";
+}
+
+function openTheme(){
+document.getElementById("themeSelector").style.display="flex";
+}
+
+function closeOverlay(){
+document.getElementById("profileBuilder").style.display="none";
+document.getElementById("themeSelector").style.display="none";
+}
+
+/* SAVE PROFILE */
+function saveProfile(){
+const username = document.getElementById("username").value;
+const name = document.getElementById("name").value;
+const bio = document.getElementById("bio").value;
+
+const user = {
+username,
+name,
+bio
+};
+
+localStorage.setItem("vk_user", JSON.stringify(user));
+
+alert("Profile Saved 🔥");
+closeOverlay();
+}
+
+/* LOAD PROFILE AUTO */
+window.onload = ()=>{
+const user = JSON.parse(localStorage.getItem("vk_user"));
+if(user){
+console.log("User Loaded:", user);
+}
+}
+
+/* THEME */
+function setTheme(src){
+document.body.style.background = `url(${src}) center/cover no-repeat`;
+localStorage.setItem("vk_theme", src);
+}
+
+/* LOAD THEME */
+const savedTheme = localStorage.getItem("vk_theme");
+if(savedTheme){
+document.body.style.background = `url(${savedTheme}) center/cover no-repeat`;
+}
+
+function openProfileCreator(){
+document.getElementById("profileCreator").style.display = "flex";
+}
+
+function saveProfile(){
+const username = document.getElementById("username").value;
+const name = document.getElementById("name").value;
+const bio = document.getElementById("bio").value;
+
+if(!username || !name || !bio){
+alert("Fill all fields bro ⚠️");
+return;
+}
+
+const profile = {
+username,
+name,
+bio
+};
+
+// SAVE DATA
+localStorage.setItem("vk_profile", JSON.stringify(profile));
+
+alert("Profile Saved 🚀");
+
+// close popup
+document.getElementById("profileCreator").style.display = "none";
+}
+function closeProfile(){
+document.getElementById("profileCreator").style.display = "none";
+}
+
+function openProfile(){
+document.getElementById("profileCreator").style.display = "flex";
+}
+
+function closeProfile(){
+document.getElementById("profileCreator").style.display = "none";
+}
+
+function saveProfile(){
+const username = document.getElementById("username").value;
+const name = document.getElementById("name").value;
+const bio = document.getElementById("bio").value;
+
+localStorage.setItem("vk_username", username);
+localStorage.setItem("vk_name", name);
+localStorage.setItem("vk_bio", bio);
+
+alert("Profile Saved 🔥");
+closeProfile();
+}
+
+function openTheme(){
+document.getElementById("themeSelector").style.display = "flex";
+}
+
+function closeTheme(){
+document.getElementById("themeSelector").style.display = "none";
+}
+
+</script>
+<div class="formBox">
+
+<h2>Create Your Identity ⚡</h2>
+
+<input id="username" type="text" placeholder="Username (unique)">
+<input id="name" type="text" placeholder="Your Name">
+
+<textarea id="bio" placeholder="Write something about you..."></textarea>
+
+<button onclick="saveProfile()">Save Profile</button>
+
+<button onclick="closeProfile()">⬅ Back</button>
+
+</div>
+</div>
+
+<!-- PROFILE POPUP -->
+<div id="profileCreator">
+  <div class="formBox">
+
+    <h2>Create Profile ⚡</h2>
+
+    <input id="username" placeholder="Username">
+    <input id="name" placeholder="Your Name">
+    <textarea id="bio" placeholder="Write your bio..."></textarea>
+
+    <button onclick="saveProfile()">Save</button>
+    <button onclick="closeProfile()">⬅ Back</button>
+
+  </div>
+</div>
+
+<div class="profile-bg-overlay"></div>
+
+<footer>
+© 2026 VK.PrimeVerse — Built For Legends
+</footer>
+
+</body>
+</html>
